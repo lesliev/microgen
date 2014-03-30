@@ -1,6 +1,6 @@
 #!/usr/bin/env ruby
 
-require_relative('../aux/migration_generator')
+require_relative('./migration_generator')
 
 class ChangeGenerator < MigrationGenerator
   def initialize(underscored_migration_name)
