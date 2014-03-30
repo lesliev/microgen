@@ -3,7 +3,7 @@ Microgen
 
 This is a collection of very simple generators for Rails 3/4. So far, there are only generators for migrations - to create new tables and to change existing tables.
 
-These generators don't load a Rails environment or attempt to boot Rails at all, they simply write a static file with a proper migration name and a lot of commented out example code to perform all the common operations. You can then comment out what you need and remove the rest.
+These generators don't load a Rails environment or attempt to boot Rails at all, they simply write a static file with a proper migration name and a lot of commented out example code to perform all the common operations. You can then uncomment and edit what you need and remove the rest.
 
 I find this to be a faster and more useful approach than trying to define my migration on the command line and then having to edit it and look up references anyway.
 
