@@ -1,0 +1,67 @@
+#!/usr/bin/env ruby
+
+require_relative('../aux/migration_generator')
+
+class TableGenerator < MigrationGenerator
+  def initialize(class_name)
+    @class_name = class_name
+  end
+
+  def base_migration_name
+    "create_#{table_name}.rb"
+  end
+
+  def table_name
+    tableize(@class_name)
+  end
+
+  def create_table_text
+    text=<<END
+class Create#{table_name.camelize} < ActiveRecord::Migration
+  def change
+    create_table :#{table_name} do |t|
+      #t.references   :anything
+      #t.belongs_to   :order,             index: true
+
+      #t.datetime     :published_at
+      #t.string       :source_reference,  length: 30
+      #t.string       :state,             null: false
+      #t.float        :pressure,          default: 0.0
+      #t.string       :email,             unique: true
+
+      t.timestamps
+    end
+  end
+end
+END
+  end
+
+  def write
+    exit_if_existing
+
+    File.open(migration_path, 'w') do |f|
+      f.puts create_table_text
+    end
+
+    puts "Generated: #{migration_path}"
+  end
+end
+
+if $0 == __FILE__
+  class_name = ARGV[0]
+  if !class_name
+    puts
+    puts "usage: #{$0} SingularModelClassName"
+    puts
+    exit 1
+  end
+
+  begin
+    tg = TableGenerator.new(class_name)
+    tg.write
+  rescue => e
+    puts
+    puts e.message
+    puts
+  end
+end
