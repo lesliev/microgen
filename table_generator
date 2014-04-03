@@ -20,14 +20,22 @@ class TableGenerator < MigrationGenerator
 class Create#{table_name.camelize} < ActiveRecord::Migration
   def change
     create_table :#{table_name} do |t|
-      #t.references   :anything
-      #t.belongs_to   :order,             index: true
 
-      #t.datetime     :published_at
-      #t.string       :source_reference,  length: 30
-      #t.string       :state,             null: false
-      #t.float        :pressure,          default: 0.0
-      #t.string       :email,             unique: true
+      #belongs_to and references are synonyms
+      #polymorphic adds a _type column
+
+      #t.belongs_to    :order,             index: true
+      #t.references    :anything,          polymorphic: true
+
+      #t.datetime      :published_at
+      #t.string        :source_reference,  length: 30
+      #t.string        :state,             null: false
+      #t.float         :pressure,          default: 0.0
+      #t.string        :email,             unique: true
+      #t.decimal       :discount,          precision: 8, scale: 2
+      #t.integer       :charge_count
+      #t.text          :description
+      #t.binary        :image_data
 
       t.timestamps
     end
